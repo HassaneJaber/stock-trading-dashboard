@@ -1,4 +1,4 @@
-📈 Stock Trading Dashboard
+# 📈 Stock Trading Dashboard
 A Laravel-powered stock portfolio and watchlist tracker with real-time price updates using Pusher.
 🚀 Features
 User Authentication – Secure login and registration system.
