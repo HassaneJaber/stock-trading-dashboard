@@ -1,0 +1,49 @@
+<?php
+
+namespace backups;
+
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Models\Watchlist;
+use App\Services\StockService;
+use Illuminate\Support\Facades\Log;
+class Kernel_backup extends ConsoleKernel
+{
+    /**
+     * The Artisan commands provided by your application.
+     *
+     * @var array
+     */
+    protected $commands = [
+        \App\Console\Commands\ClearLogs::class, // Register the custom logs:clear command
+    ];
+
+    /**
+     * Define the application's command schedule.
+     */
+    protected function schedule(Schedule $schedule)
+{
+    $schedule->call(function () {
+        $watchlist = Watchlist::all();
+        foreach ($watchlist as $stock) {
+            $currentPrice = app(StockService::class)->getStockPrice($stock->stock_symbol)['price'] ?? null;
+            if ($currentPrice && $stock->target_price && $currentPrice >= $stock->target_price) {
+                Log::info("ALERT: {$stock->stock_symbol} hit target price of {$stock->target_price} (Current: {$currentPrice})");
+                // TODO: Add email or notification logic here
+            }
+        }
+    })->everyMinute();
+}
+
+    /**
+     * Register the commands for the application.
+     */
+    protected function commands(): void
+    {
+        $this->load(__DIR__.'/Commands');
+
+        require base_path('routes/console.php');
+    }
+
+    
+}
