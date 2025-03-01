@@ -1,86 +1,72 @@
-# 📈 Stock Trading Dashboard
-A Laravel-powered stock portfolio and watchlist tracker with real-time price updates using Pusher.
+# Stock Trading Dashboard 📈
+A Laravel-powered stock trading dashboard that allows users to buy, sell, and track stocks in real-time. The system integrates Pusher for live stock price updates and provides a watchlist feature to track selected stocks.
 
 🚀 Features
-User Authentication – Secure login and registration system.
-Stock Portfolio Management – Buy and sell stocks while tracking your investments.
-Real-time Price Updates – Uses Pusher to dynamically update stock prices.
-Watchlist – Add stocks to your watchlist and monitor price changes.
-Transaction History – View a detailed log of your stock transactions.
-Live Notifications – Get alerts when stock prices hit your target values.
+✅ User Authentication – Secure login & registration with Laravel Breeze.
+✅ Real-time Stock Price Updates – Uses Pusher & Laravel Echo to display live stock prices.
+✅ Portfolio Management – View your owned stocks, total investments, and profits/losses.
+✅ Transaction History – Track all buy & sell transactions.
+✅ Watchlist – Add/remove stocks to monitor price movements.
+✅ Dynamic UI – Built with Tailwind CSS for a clean & responsive design.
+✅ Data Persistence – Uses MySQL for storing transactions, stock prices, and watchlist data.
+
 🛠️ Tech Stack
-Frontend: Tailwind CSS, Alpine.js
-Backend: Laravel 12 (PHP 8.2)
-Database: MySQL
-Real-time Updates: Pusher & Laravel Echo
-Version Control: Git & GitHub
-📂 Installation & Setup
+Laravel 12 – Backend framework
+MySQL – Database
+Pusher – Real-time stock updates
+Tailwind CSS – Frontend styling
+Live Stock API – Fetches stock prices dynamically
+📂 Installation
 1️⃣ Clone the Repository
-git clone https://github.com/HassaneJaber/stock-trading-dashboard.git
+
+git clone https://github.com/your-github-username/stock-trading-dashboard.git
 cd stock-trading-dashboard
-
 2️⃣ Install Dependencies
+
 composer install
-npm install && npm run dev
+npm install
+3️⃣ Set Up the Environment
+Copy .env.example to .env
 
-3️⃣ Configure the Environment
-Copy .env.example to .env:
+
 cp .env.example .env
+Then update the following fields in the .env file with your own credentials:
 
-Generate the application key:
-php artisan key:generate
 
-Set up database credentials inside .env:
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=stock_trading_db
-DB_USERNAME=root
-DB_PASSWORD=
+DB_DATABASE=your_database
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
 
-Add Pusher credentials inside .env:
-BROADCAST_DRIVER=pusher
-PUSHER_APP_ID=1950436
-PUSHER_APP_KEY=f9b607468c4b3e672c90
-PUSHER_APP_SECRET=56f37202feaec1c5bdc5
-PUSHER_APP_CLUSTER=mt1
+PUSHER_APP_ID=your_pusher_id
+PUSHER_APP_KEY=your_pusher_key
+PUSHER_APP_SECRET=your_pusher_secret
+PUSHER_APP_CLUSTER=your_pusher_cluster
+4️⃣ Set Up Database
 
-4️⃣ Run Migrations
 php artisan migrate --seed
+5️⃣ Start the Application
 
-5️⃣ Start the Server
 php artisan serve
+Open http://127.0.0.1:8000 in your browser.
 
-The application will be available at http://127.0.0.1:8000
+💡 How to Test Real-time Updates?
+1️⃣ Open the Portfolio Page on two different browser windows.
+2️⃣ Run Tinker in your terminal:
 
-📡 Running Real-Time Updates
-Start Laravel Echo Server
-npm run dev
 
-Manually Simulate a Stock Price Update
-Run the following command inside Tinker:
 php artisan tinker
+3️⃣ Trigger a Stock Price Update manually:
 
-Then execute:
+
 use App\Events\StockPriceUpdated;
-event(new StockPriceUpdated('AAPL', 150.25));
+event(new StockPriceUpdated('AAPL', 145.50));
+4️⃣ Watch live updates appear instantly on the dashboard! 🎉
 
-✅ Stock price updates will reflect instantly in the UI.
+🛑 Important Security Notes
+🚨 NEVER push the .env file to GitHub (it contains credentials).
+🚨 .env is already ignored in .gitignore, so it won't be uploaded.
+🚨 Pusher credentials are private – only share placeholders in the README.
 
-📜 API Endpoints
-GET /portfolio – View user's portfolio
-POST /buy-stock – Buy a stock
-POST /sell-stock – Sell a stock
-GET /watchlist – View watchlist
-POST /watchlist/add – Add stock to watchlist
-DELETE /watchlist/remove/{id} – Remove from watchlist
+📌 License
+This project is open-source under the MIT License.
 
-📌 TODO / Future Enhancements
-📊 Charts & Graphs to visualize stock performance.
-📅 Stock Alerts when prices hit certain thresholds.
-📉 Historical Price Data for better investment decisions.
-📢 WebSocket Integration for even faster updates.
-📄 License
-This project is MIT licensed.
-
-Let me know if you need any changes! 🚀
